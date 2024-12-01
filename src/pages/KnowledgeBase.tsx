@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Search } from 'lucide-react';
+import { Toaster, toast } from 'react-hot-toast';
 import DocumentUploadForm from '../components/DocumentUploadForm';
 import DocumentList from '../components/DocumentList';
-import { uploadDocument, fetchDocuments, deleteDocument } from '../utils/storage';
+import { saveDocument, getDocuments, deleteDocument } from '../utils/documentStorage';
 import type { Document } from '../types/document';
 
 const KnowledgeBase = () => {
@@ -16,32 +17,36 @@ const KnowledgeBase = () => {
     loadDocuments();
   }, []);
 
-  const loadDocuments = async () => {
-    try {
-      const docs = await fetchDocuments();
-      setDocuments(docs);
-    } catch (error) {
-      console.error('Error fetching documents:', error);
-    }
+  const loadDocuments = () => {
+    const docs = getDocuments();
+    setDocuments(docs);
   };
 
   const handleUpload = async (title: string, brief: string, file: File) => {
     setIsUploading(true);
     try {
-      await uploadDocument(title, brief, file);
-      await loadDocuments();
+      await saveDocument(title, brief, file);
+      loadDocuments();
+      toast.success('Document uploaded successfully!');
     } catch (error) {
       console.error('Error uploading document:', error);
+      toast.error('Failed to upload document. Please try again.');
+    } finally {
+      setIsUploading(false);
     }
-    setIsUploading(false);
   };
 
-  const handleDelete = async (docId: string) => {
+  const handleDelete = (docId: string) => {
+    const confirmed = window.confirm('Are you sure you want to delete this document?');
+    if (!confirmed) return;
+
     try {
-      await deleteDocument(docId);
-      await loadDocuments();
+      deleteDocument(docId);
+      loadDocuments();
+      toast.success('Document deleted successfully!');
     } catch (error) {
       console.error('Error deleting document:', error);
+      toast.error('Failed to delete document. Please try again.');
     }
   };
 
@@ -52,6 +57,8 @@ const KnowledgeBase = () => {
 
   return (
     <div>
+      <Toaster position="top-right" />
+      
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

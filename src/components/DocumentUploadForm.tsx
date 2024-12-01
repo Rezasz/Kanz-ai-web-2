@@ -14,10 +14,20 @@ const DocumentUploadForm: React.FC<DocumentUploadFormProps> = ({ onUpload, isUpl
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file || !title || !brief) return;
+    
+    if (!file.type.includes('pdf')) {
+      alert('Please upload a PDF file');
+      return;
+    }
+    
     await onUpload(title, brief, file);
     setTitle('');
     setBrief('');
     setFile(null);
+    
+    // Reset file input
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (fileInput) fileInput.value = '';
   };
 
   return (

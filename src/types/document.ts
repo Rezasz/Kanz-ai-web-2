@@ -2,7 +2,7 @@ export interface Document {
   id: string;
   title: string;
   brief: string;
-  pdfUrl: string;
+  fileName: string;
   uploadDate: string;
   uploadedBy: string;
 }
