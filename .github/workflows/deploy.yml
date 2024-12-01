@@ -1,0 +1,44 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Deploy to the VPS using SSH
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: 91.107.255.176
+        username: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          # Navigate to the project directory or clone if missing
+          if [ ! -d "/var/www/kanz-ai-web" ]; then
+            git clone https://github.com/Rezasz/Kanz-ai-web-2.git /var/www/kanz-ai-web
+          fi
+
+          cd /var/www/kanz-ai-web
+
+          # Pull the latest changes
+          git pull origin main
+
+          # Install dependencies and build
+          npm install
+          npm run build
+
+          # Copy built files to the web directory
+          cp -r dist/* /var/www/your-website/
+
+          # Restart Nginx to apply changes
+          systemctl restart nginx
