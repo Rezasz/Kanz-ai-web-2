@@ -15,12 +15,10 @@ export const saveDocument = async (title: string, brief: string, file: File): Pr
     title,
     brief,
     fileName: file.name,
+    fileUrl,
     uploadDate: timestamp,
     uploadedBy: 'admin'
   };
-
-  // Store the blob URL in sessionStorage to persist across page reloads
-  sessionStorage.setItem(`file_${id}`, fileUrl);
   
   documents.push(newDocument);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(documents));
@@ -36,13 +34,8 @@ export const deleteDocument = (id: string): void => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(documents));
   
   // Clean up the blob URL
-  const fileUrl = sessionStorage.getItem(`file_${id}`);
-  if (fileUrl) {
-    URL.revokeObjectURL(fileUrl);
-    sessionStorage.removeItem(`file_${id}`);
+  const doc = getDocuments().find(d => d.id === id);
+  if (doc?.fileUrl) {
+    URL.revokeObjectURL(doc.fileUrl);
   }
-};
-
-export const getDocumentUrl = (id: string): string | null => {
-  return sessionStorage.getItem(`file_${id}`);
 };
