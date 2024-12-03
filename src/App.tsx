@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -11,6 +12,7 @@ import UseCases from './pages/UseCases';
 import KnowledgeBase from './pages/KnowledgeBase';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
+import RequestAccess from './pages/RequestAccess';
 
 function App() {
   return (
@@ -28,9 +30,11 @@ function App() {
               <Route path="/knowledge-base" element={<KnowledgeBase />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/request-access" element={<RequestAccess />} />
             </Routes>
           </main>
           <Footer />
+          <Toaster position="top-center" />
         </div>
       </Router>
     </AuthProvider>

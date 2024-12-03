@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import EditableContent from '../components/EditableContent';
 
 const Home = () => {
+  const handleTryFree = () => {
+    window.open('https://91.107.255.176:8080/', '_blank');
+  };
+
   return (
     <div>
       {/* Hero Section */}
@@ -30,8 +34,8 @@ const Home = () => {
               type="paragraph"
             />
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/contact"
+              <button
+                onClick={handleTryFree}
                 className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-gray-50 transition-colors"
               >
                 <EditableContent
@@ -39,7 +43,7 @@ const Home = () => {
                   defaultContent="Get Started"
                 />
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+              </button>
               <Link
                 to="/how-it-works"
                 className="inline-flex items-center justify-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white/10 transition-colors"
@@ -129,8 +133,8 @@ const Home = () => {
             defaultContent="Join leading financial institutions who trust Kanz.ai for their document management needs."
             type="paragraph"
           />
-          <Link
-            to="/contact"
+          <button
+            onClick={handleTryFree}
             className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50 transition-colors"
           >
             <EditableContent
@@ -138,7 +142,7 @@ const Home = () => {
               defaultContent="Start Free Trial"
             />
             <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
+          </button>
         </div>
       </section>
     </div>

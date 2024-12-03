@@ -21,6 +21,7 @@ const Navbar = () => {
     { name: 'Use Cases', path: '/use-cases' },
     { name: 'Knowledge Base', path: '/knowledge-base' },
     { name: 'Contact', path: '/contact' },
+    { name: 'Request Access', path: '/request-access' },
   ];
 
   const handleTryFree = () => {
