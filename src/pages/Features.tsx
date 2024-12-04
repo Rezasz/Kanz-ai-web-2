@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import EditableContent from '../components/EditableContent';
+import SEO from '../components/SEO';
 
 const Features = () => {
   const mainFeatures = [
@@ -122,70 +123,77 @@ const Features = () => {
   ];
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
+    <>
+      <SEO 
+        title="Features"
+        description="Explore Kanz.ai's comprehensive suite of AI-driven document management features designed for modern enterprises."
+        canonical="/features"
+      />
+      <div>
+        {/* Hero Section */}
+        <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
+              <EditableContent
+                id="features-hero-title"
+                defaultContent="Transforming Business with AI-Driven Solutions"
+                type="heading"
+              />
+              <EditableContent
+                id="features-hero-description"
+                defaultContent="Kanz.ai is at the forefront of digital transformation, offering a suite of AI-driven solutions tailored to enhance operational efficiency and customer engagement across various industries. Our platform seamlessly integrates with existing systems, providing scalable and secure services that drive innovation and growth."
+                type="paragraph"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Features Grid */}
+        <section className="py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {mainFeatures.map((feature) => (
+                <div key={feature.id} className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                  <feature.icon className="h-12 w-12 text-blue-600 mb-4" />
+                  <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 mb-4">{feature.description}</p>
+                  <ul className="space-y-2">
+                    {feature.benefits.map((benefit, index) => (
+                      <li key={index} className="flex items-start text-gray-600">
+                        <ChevronRight className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" />
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="bg-gray-50 py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <EditableContent
-              id="features-hero-title"
-              defaultContent="Transforming Business with AI-Driven Solutions"
+              id="features-cta-title"
+              defaultContent="Ready to Transform Your Business?"
               type="heading"
             />
             <EditableContent
-              id="features-hero-description"
-              defaultContent="Kanz.ai is at the forefront of digital transformation, offering a suite of AI-driven solutions tailored to enhance operational efficiency and customer engagement across various industries. Our platform seamlessly integrates with existing systems, providing scalable and secure services that drive innovation and growth."
+              id="features-cta-description"
+              defaultContent="Contact us to learn how Kanz.ai's comprehensive features can benefit your organization"
               type="paragraph"
             />
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+            >
+              Request Demo
+            </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {mainFeatures.map((feature) => (
-              <div key={feature.id} className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <feature.icon className="h-12 w-12 text-blue-600 mb-4" />
-                <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-                <p className="text-gray-600 mb-4">{feature.description}</p>
-                <ul className="space-y-2">
-                  {feature.benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start text-gray-600">
-                      <ChevronRight className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" />
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <EditableContent
-            id="features-cta-title"
-            defaultContent="Ready to Transform Your Business?"
-            type="heading"
-          />
-          <EditableContent
-            id="features-cta-description"
-            defaultContent="Contact us to learn how Kanz.ai's comprehensive features can benefit your organization"
-            type="paragraph"
-          />
-          <Link
-            to="/contact"
-            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
-          >
-            Request Demo
-          </Link>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 };
 

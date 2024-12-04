@@ -15,13 +15,16 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
     { name: 'Features', path: '/features' },
     { name: 'How It Works', path: '/how-it-works' },
     { name: 'Use Cases', path: '/use-cases' },
-    { name: 'Knowledge Base', path: '/knowledge-base' },
+    { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
+  ];
+
+  const secondaryNavItems = [
     { name: 'Request Access', path: '/request-access' },
+    { name: 'Knowledge Base', path: '/knowledge-base' },
   ];
 
   const handleTryFree = () => {
@@ -41,6 +44,7 @@ const Navbar = () => {
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center space-x-4">
+            {/* Primary Navigation */}
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -50,6 +54,21 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
+
+            {/* Divider */}
+            <span className="h-6 w-px bg-gray-200"></span>
+
+            {/* Secondary Navigation */}
+            {secondaryNavItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                {item.name}
+              </Link>
+            ))}
+
             {isAuthenticated ? (
               <button
                 onClick={handleLogout}
@@ -91,6 +110,7 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {/* Primary Navigation */}
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -101,6 +121,22 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
+
+            {/* Divider */}
+            <div className="my-2 border-t border-gray-200"></div>
+
+            {/* Secondary Navigation */}
+            {secondaryNavItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium"
+                onClick={() => setIsOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+
             {isAuthenticated ? (
               <button
                 onClick={() => {
