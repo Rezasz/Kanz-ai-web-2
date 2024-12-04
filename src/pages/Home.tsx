@@ -1,12 +1,18 @@
 import React from 'react';
 import { ArrowRight, Brain, Shield, Zap } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import EditableContent from '../components/EditableContent';
 import SEO from '../components/SEO';
 
 const Home = () => {
+  const navigate = useNavigate();
+
   const handleTryFree = () => {
     window.open('https://91.107.255.176:8080/', '_blank');
+  };
+
+  const handleGetStarted = () => {
+    navigate('/request-access');
   };
 
   return (
@@ -42,7 +48,7 @@ const Home = () => {
               />
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
-                  onClick={handleTryFree}
+                  onClick={handleGetStarted}
                   className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-gray-50 transition-colors"
                 >
                   <EditableContent
